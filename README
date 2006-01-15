@@ -1,0 +1,35 @@
+criticism(3)          User Contributed Perl Documentation         criticism(3)
+
+
+
+NNAAMMEE
+       criticism - Perl pragma to enforce coding standards
+
+SSYYNNOOPPSSIISS
+         use criticism;
+
+         use criticism 'stern';
+         use criticism 'harsh';
+         use criticism 'cruel';
+         use criticism 'brutal';
+
+DDEESSCCRRIIPPTTIIOONN
+       This pragma runs your file through Perl::Critic before every execution.
+       In practice, this isn't really feasible because it adds a great deal of
+       overhead at start-up.  Unless you really don't mind the wait, you're
+       probably better off using the perlcritic command-line or
+       Test::Perl::Critic.
+
+AAUUTTHHOORR
+       Jeffrey Ryan Thalhammer <thaljef@cpan.org>
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (c) 2006 Jeffrey Ryan Thalhammer.  All rights reserved.
+
+       This program is free software; you can redistribute it and/or modify it
+       under the same terms as Perl itself.  The full text of this license can
+       be found in the LICENSE file included with this module.
+
+
+
+perl v5.8.7                       2006-01-14                      criticism(3)
