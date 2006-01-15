@@ -8,6 +8,7 @@ NNAAMMEE
 SSYYNNOOPPSSIISS
          use criticism;
 
+         use criticism 'gentle';
          use criticism 'stern';
          use criticism 'harsh';
          use criticism 'cruel';
@@ -15,10 +16,42 @@ SSYYNNOOPPSSIISS
 
 DDEESSCCRRIIPPTTIIOONN
        This pragma runs your file through Perl::Critic before every execution.
-       In practice, this isn't really feasible because it adds a great deal of
+       In practice, this isn't always feasible because it adds a great deal of
        overhead at start-up.  Unless you really don't mind the wait, you're
        probably better off using the perlcritic command-line or
        Test::Perl::Critic.
+
+       For scripts, you can manually load the "criticism" pragma at the com-
+       mand-line like this:
+
+         perl -Mcriticism=cruel your_script.pl
+
+       Or if you only want to run Perl::Critic during development and you have
+       not installed Perl::Critic in your production environment, try this:
+
+         eval {
+             require criticism;
+             criticism->import( 'cruel' );
+         };
+
+CCOONNFFIIGGUURRAATTIIOONN
+       The import argument is a named equivalent to the numeric severity lev-
+       els in Perl::Critic.  For example, "use criticism 'gentle';" reports
+       only the most dangerous violations.  On the other hand, "use criticism
+       'brutal';" reports eevveerryy violation.  If the import argument is not
+       defined, it defaults to 'gentle'.
+
+       The "criticsm" pragma will obey whatever configurations you have set in
+       your _._p_e_r_l_c_r_i_t_i_c_r_c file.  See "CONFIGURATION" in Perl::Critic for more
+       details.
+
+NNOOTTEESS
+       The "criticism" pragma will apply to the whole file, so it is not
+       affected by scope boundaries and "use"-ing it mutliple times will just
+       cause it to reprocess the same file.  There isn't a reciprocal "no
+       criticism" pragma.  However, Perl::Critic does support a pseudo-pragma
+       that directs it to overlook certain lines or blocks of code.  See
+       "BENDING THE RULES" in Perl::Critic for more details.
 
 AAUUTTHHOORR
        Jeffrey Ryan Thalhammer <thaljef@cpan.org>
