@@ -1,15 +1,24 @@
 #######################################################################
 #      $URL: http://perlcritic.tigris.org/svn/perlcritic/trunk/criticism/Changes $
-#     $Date: 2006-01-14 22:39:51 -0800 (Sat, 14 Jan 2006) $
+#     $Date: 2006-01-21 22:21:36 -0800 (Sat, 21 Jan 2006) $
 #   $Author: thaljef $
 # $Revision: 206 $
 ########################################################################
 
+[0.03] Released 060130
+
+     Now internally trapping failures to load Perl::Critic.  This saves
+     developers from having to write ugly code that conditionally loads
+     the criticism pragma.
+
+     Revised documentation.
+
 [0.02] Released 060115
 
      Fixed stupid bug.  Doh!
+
      Expanded documentation.
 
-[0.01] Released 060115
+[0.01] Released 060114
 
      Initial release.  Enjoy!

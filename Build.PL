@@ -12,7 +12,7 @@ use Module::Build;
 my $builder = Module::Build->new(
     module_name    => 'criticism',
     dist_author    => 'Jeffrey Thalhammer <thaljef@cpan.org>',
-    dist_abstract  => 'Perl Pragma to enforce coding standards',
+    dist_abstract  => 'Perl Pragma to enforce coding standards and best-practices',
     requires       => {'Perl::Critic' => 0.13_01},
     build_requires => {'Test::More'   => 0},
     license        => 'perl',
