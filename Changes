@@ -1,11 +1,22 @@
 #######################################################################
-#      $URL: http://perlcritic.tigris.org/svn/perlcritic/trunk/criticism/Changes $
-#     $Date: 2006-01-21 22:21:36 -0800 (Sat, 21 Jan 2006) $
+#      $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-0.04/Changes $
+#     $Date: 2006-11-05 20:06:19 -0800 (Sun, 05 Nov 2006) $
 #   $Author: thaljef $
 # $Revision: 206 $
 ########################################################################
 
-[0.03] Released 060130
+[0.04] Released on 2006-11-05
+
+     All arguments to Perl::Critic can now be passed through the
+     criticism pragma.
+
+     The default output format has changed slightly to match the
+     output of "perl -c".  This enables EPIC users to integrate
+     with Perl::Critic.
+
+     Now requires Perl::Critic 0.21 or higher.
+
+[0.03] Released 2006-01-30
 
      Now internally trapping failures to load Perl::Critic.  This saves
      developers from having to write ugly code that conditionally loads
@@ -13,12 +24,12 @@
 
      Revised documentation.
 
-[0.02] Released 060115
+[0.02] Released 2006-01-15
 
      Fixed stupid bug.  Doh!
 
      Expanded documentation.
 
-[0.01] Released 060114
+[0.01] Released 2006-01-14
 
      Initial release.  Enjoy!

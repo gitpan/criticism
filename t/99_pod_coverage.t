@@ -1,6 +1,6 @@
 ##################################################################
-#     $URL: http://perlcritic.tigris.org/svn/perlcritic/trunk/criticism/t/99_pod_coverage.t $
-#    $Date: 2006-01-14 20:51:09 -0800 (Sat, 14 Jan 2006) $
+#     $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-0.04/t/99_pod_coverage.t $
+#    $Date: 2006-11-05 20:06:19 -0800 (Sun, 05 Nov 2006) $
 #   $Author: thaljef $
 # $Revision: 210 $
 ##################################################################

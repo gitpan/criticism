@@ -1,6 +1,6 @@
 #######################################################################
-#      $URL: http://perlcritic.tigris.org/svn/perlcritic/trunk/criticism/INSTALL $
-#     $Date: 2006-01-15 13:01:26 -0800 (Sun, 15 Jan 2006) $
+#      $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-0.04/INSTALL $
+#     $Date: 2006-11-05 20:06:19 -0800 (Sun, 05 Nov 2006) $
 #   $Author: thaljef $
 # $Revision: 209 $
 ########################################################################
@@ -10,8 +10,8 @@ INSTALLATION
      To install 'criticism' with C<make> give the following 
      commands to your favorite shell:
 
-         tar -zxf criticism-0.03.tar.gz
-         cd criticism-0.03
+         tar -zxf criticism-0.04.tar.gz
+         cd criticism-0.04
          perl Makefile.PL
          make
          make test
@@ -19,8 +19,8 @@ INSTALLATION
 
      Or if you prefer C<Module::Build>, try this:
 
-         tar -zxf criticism-0.03.tar.gz
-         cd criticism-0.03
+         tar -zxf criticism-0.04.tar.gz
+         cd criticism-0.04
          perl Build.pl
          ./Build
          ./Build test

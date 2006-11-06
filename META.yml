@@ -1,11 +1,16 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         criticism
-version:      0.03
-version_from: lib/criticism.pm
-installdirs:  site
+---
+name: criticism
+version: 0.04
+author:
+  - Jeffrey Thalhammer <thaljef@cpan.org>
+abstract: Perl pragma to enforce coding standards and best-practices
+license: perl
 requires:
-    Perl::Critic:                  0.1301
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30
+  Perl::Critic: 0.21
+build_requires:
+  Test::More: 0
+provides:
+  criticism:
+    file: lib/criticism.pm
+    version: 0.04
+generated_by: Module::Build version 0.2611

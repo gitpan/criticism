@@ -1,6 +1,6 @@
 #######################################################################
-#      $URL: http://perlcritic.tigris.org/svn/perlcritic/trunk/criticism/lib/criticism.pm $
-#     $Date: 2006-01-21 22:21:36 -0800 (Sat, 21 Jan 2006) $
+#      $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-0.04/lib/criticism.pm $
+#     $Date: 2006-11-05 20:06:19 -0800 (Sun, 05 Nov 2006) $
 #   $Author: thaljef $
 # $Revision: 203 $
 ########################################################################
@@ -10,14 +10,13 @@ package criticism;
 use strict;
 use warnings;
 use English qw(-no_match_vars);
-use Carp;
+use Carp qw(carp croak);
 
-our $VERSION = 0.03;
-$VERSION = eval $VERSION;  ## no critic
+our $VERSION = 0.04;
 
 #-----------------------------------------------------------------------------
 
-my %severity_of = (
+my %SEVERITY_OF = (
     gentle => 5,
     stern  => 4,
     harsh  => 3,
@@ -25,39 +24,55 @@ my %severity_of = (
     brutal => 1,
 );
 
-my $default_mood = 'gentle';
+my $DEFAULT_MOOD = 'gentle';
+my $DEFAULT_VERBOSE = "%m at %f line %l\n";
 
 #-----------------------------------------------------------------------------
 
 sub import {
 
-    my ($pkg, $mood) = @_;
-    $mood ||= $default_mood;
+    my ($pkg, @args) = @_;
+    my $file = (caller)[1];
+    return 1 if not -f $file;
+    my %pc_args = _make_pc_args( @args );
+    return _critique( $file, %pc_args );
+}
 
-    if (! exists $severity_of{$mood} ){
-        my @moods = keys %severity_of;
-        @moods = sort { $severity_of{$b} <=> $severity_of{$a} } @moods;
-        croak qq{'$mood' criticsm not supported.  Choose from: @moods};
+#-----------------------------------------------------------------------------
+
+sub _make_pc_args {
+
+    my (@args) = @_;
+    my %pc_args = ();
+
+    if (@args <= 1 ) {
+        my $mood = $args[0] || $DEFAULT_MOOD;
+        my $severity = $SEVERITY_OF{$mood} || _throw_mood_exception( $mood );
+        %pc_args = (-severity => $severity, -verbose => $DEFAULT_VERBOSE);
+    }
+    else {
+        %pc_args = @args;
+        $pc_args{-verbose} ||= $DEFAULT_VERBOSE;
     }
 
-    my $file = (caller)[1];
-    return 1 if ! -f $file;
+    return %pc_args;
+}
+
+#-----------------------------------------------------------------------------
+
+sub _critique {
+
+    my ($file, %pc_args) = @_;
     my @violations = ();
 
     eval {
         require Perl::Critic;
         require Perl::Critic::Violation;
-	my $sev     = $severity_of{$mood};
-        my $critic  = Perl::Critic->new( -severity => $sev );
+        my $critic  = Perl::Critic->new( %pc_args );
+        my $verbose = $critic->config->verbose();
+        Perl::Critic::Violation::set_format($verbose);
         @violations = $critic->critique($file);
-
-        if (@violations) {
-            ## no critic
-            no warnings 'once';
-            my $format = "$file: %m at line %l, column %c. %e.\n";
-            local $Perl::Critic::Violation::FORMAT = $format;
-            warn @violations;
-        }
+        warn @violations if @violations;
     };
 
     if ( $EVAL_ERROR && ($ENV{DEBUG} || $PERLDB) ) {
@@ -68,6 +83,14 @@ sub import {
     return @violations ? 0 : 1;
 }
 
+#-----------------------------------------------------------------------------
+
+sub _throw_mood_exception {
+    my ($mood) = @_;
+    my @moods = keys %SEVERITY_OF;
+    @moods = reverse sort { $SEVERITY_OF{$a} <=> $SEVERITY_OF{$b} } @moods;
+    croak qq{"$mood" criticism not supported.  Choose from: @moods};
+}
 
 1;
 
@@ -76,6 +99,8 @@ __END__
 #-----------------------------------------------------------------------------
 
 =pod
+
+=for stopwords API
 
 =head1 NAME
 
@@ -90,6 +115,9 @@ criticism - Perl pragma to enforce coding standards and best-practices
   use criticism 'harsh';
   use criticism 'cruel';
   use criticism 'brutal';
+
+  use criticism ( -profile => '/foo/bar/perlcriticrc' );
+  use criticism ( -severity => 3, -verbose => '%m at %f line %l' );
 
 =head1 DESCRIPTION
 
@@ -108,24 +136,51 @@ has some additional configuration features.  And L<Test::Perl::Critic>
 provides a nice interface for analyzing files during the build
 process.
 
+If you'd like to try L<Perl::Critic> without installing anything,
+there is a web-service available at L<http://perlcritic.com>.  The
+web-service does not yet support all the configuration features that
+are available in the native Perl::Critic API, but it should give you a
+good idea of what it does.  You can also invoke the perlcritic
+web-service from the command line by doing an HTTP-post, such as one
+of these:
+
+    $> POST http://perlcritic.com/perl/critic.pl < MyModule.pm
+    $> lwp-request -m POST http://perlcritic.com/perl/critic.pl < MyModule.pm
+    $> wget -q -O - --post-file=MyModule.pm http://perlcritic.com/perl/critic.pl
+
+Please note that the perlcritic web-service is still alpha code.  The
+URL and interface to the service are subject to change.
+
 =head1 CONFIGURATION
 
-The import argument is a named equivalent to the numeric severity
-levels in L<Perl::Critic>.  For example, C<use criticism 'gentle';>
-reports only the most dangerous violations.  On the other hand, C<use
-criticism 'brutal';> reports B<every> violation.  If the import
-argument is not defined, it defaults to C<'gentle'>.
+If there is exactly one import argument, then it is taken to be a
+named equivalent to one of the numeric severity levels supported by
+L<Perl::Critic>.  For example, C<use criticism 'gentle';> is
+equivalent to setting the C<-severity> to 5, which reports only the
+most dangerous violations.  On the other hand, C<use criticism
+'brutal';> is like setting the C<-severity> to 1, which reports
+B<every> violation.  If there are no import arguments, then it
+defaults to C<'gentle'>.
 
-The C<criticism> pragma will obey whatever configurations you have set
-in your F<.perlcriticrc> file.  See L<Perl::Critic/"CONFIGURATION">
-for more details.
+If there is more than one import argument, then they will all be
+passed directly into the L<Perl::Critic> constructor.  So you can use
+whatever arguments are supported by Perl::Critic.
+
+The C<criticism> pragma will also obey whatever configurations you
+have set in your F<.perlcriticrc> file.  See
+L<Perl::Critic/"CONFIGURATION"> for more details.
 
 =head1 DIAGNOSTICS
 
-Usually, the C<criticism> pragma fails silently.  But if you set the
-C<DEBUG> environment variable to a true value or run your program
-under the Perl debugger, you will get a warning when C<criticism>
-fails to load L<Perl::Critic>.
+Usually, the C<criticism> pragma fails silently if it cannot load
+Perl::Critic.  So by B<not> installing Perl::Critic in your production
+environment, you can leave the C<criticism> pragma in your production
+source code and it will still compile, but it won't be analyzed by
+Perl::Critic each time it runs.
+
+However, if you set the C<DEBUG> environment variable to a true value
+or run your program under the Perl debugger, you will get a warning
+when C<criticism> fails to load L<Perl::Critic>.
 
 =head1 NOTES
 
