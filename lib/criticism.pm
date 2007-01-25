@@ -1,6 +1,6 @@
 #######################################################################
-#      $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-0.04/lib/criticism.pm $
-#     $Date: 2006-11-05 20:06:19 -0800 (Sun, 05 Nov 2006) $
+#      $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-1.01/lib/criticism.pm $
+#     $Date: 2007-01-24 22:37:04 -0800 (Wed, 24 Jan 2007) $
 #   $Author: thaljef $
 # $Revision: 203 $
 ########################################################################
@@ -12,7 +12,9 @@ use warnings;
 use English qw(-no_match_vars);
 use Carp qw(carp croak);
 
-our $VERSION = 0.04;
+#-----------------------------------------------------------------------------
+
+our $VERSION = 1.01;
 
 #-----------------------------------------------------------------------------
 
@@ -25,7 +27,7 @@ my %SEVERITY_OF = (
 );
 
 my $DEFAULT_MOOD = 'gentle';
-my $DEFAULT_VERBOSE = "%m at %f line %l\n";
+my $DEFAULT_VERBOSE = "%m at %f line %l.\n";
 
 #-----------------------------------------------------------------------------
 
@@ -72,7 +74,7 @@ sub _critique {
         my $verbose = $critic->config->verbose();
         Perl::Critic::Violation::set_format($verbose);
         @violations = $critic->critique($file);
-        warn @violations if @violations;
+        print {*STDERR} @violations;
     };
 
     if ( $EVAL_ERROR && ($ENV{DEBUG} || $PERLDB) ) {
@@ -144,9 +146,9 @@ good idea of what it does.  You can also invoke the perlcritic
 web-service from the command line by doing an HTTP-post, such as one
 of these:
 
-    $> POST http://perlcritic.com/perl/critic.pl < MyModule.pm
-    $> lwp-request -m POST http://perlcritic.com/perl/critic.pl < MyModule.pm
-    $> wget -q -O - --post-file=MyModule.pm http://perlcritic.com/perl/critic.pl
+  $> POST http://perlcritic.com/perl/critic.pl < MyModule.pm
+  $> lwp-request -m POST http://perlcritic.com/perl/critic.pl < MyModule.pm
+  $> wget -q -O - --post-file=MyModule.pm http://perlcritic.com/perl/critic.pl
 
 Please note that the perlcritic web-service is still alpha code.  The
 URL and interface to the service are subject to change.
@@ -156,9 +158,9 @@ URL and interface to the service are subject to change.
 If there is exactly one import argument, then it is taken to be a
 named equivalent to one of the numeric severity levels supported by
 L<Perl::Critic>.  For example, C<use criticism 'gentle';> is
-equivalent to setting the C<-severity> to 5, which reports only the
-most dangerous violations.  On the other hand, C<use criticism
-'brutal';> is like setting the C<-severity> to 1, which reports
+equivalent to setting the C<< -severity => 5 >>, which reports only
+the most dangerous violations.  On the other hand, C<use criticism
+'brutal';> is like setting the C<< -severity => 1 >>, which reports
 B<every> violation.  If there are no import arguments, then it
 defaults to C<'gentle'>.
 
@@ -198,7 +200,7 @@ Jeffrey Ryan Thalhammer <thaljef@cpan.org>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2006 Jeffrey Ryan Thalhammer.  All rights reserved.
+Copyright (c) 2006-2007 Jeffrey Ryan Thalhammer.  All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.  The full text of this license

@@ -1,8 +1,8 @@
 ##################################################################
-#     $URL: http://perlcritic.tigris.org/svn/perlcritic/trunk/criticism/t/00_compile.t $
-#    $Date: 2006-03-19 16:23:09 -0800 (Sun, 19 Mar 2006) $
+#     $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-1.01/t/01_basic.t $
+#    $Date: 2007-01-24 22:37:04 -0800 (Wed, 24 Jan 2007) $
 #   $Author: thaljef $
-# $Revision: 174 $
+# $Revision: 1188 $
 ##################################################################
 
 use strict;
@@ -10,7 +10,7 @@ use warnings;
 use Test::More tests => 9;
 
 require criticism;
-my $DEFAULT_VERBOSE = "%m at %f line %l\n";
+my $DEFAULT_VERBOSE = "%m at %f line %l.\n";
 
 #-----------------------------------------------------------------------------
 

@@ -34,9 +34,9 @@ DESCRIPTION
     does. You can also invoke the perlcritic web-service from the command
     line by doing an HTTP-post, such as one of these:
 
-        $> POST http://perlcritic.com/perl/critic.pl < MyModule.pm
-        $> lwp-request -m POST http://perlcritic.com/perl/critic.pl < MyModule.pm
-        $> wget -q -O - --post-file=MyModule.pm http://perlcritic.com/perl/critic.pl
+      $> POST http://perlcritic.com/perl/critic.pl < MyModule.pm
+      $> lwp-request -m POST http://perlcritic.com/perl/critic.pl < MyModule.pm
+      $> wget -q -O - --post-file=MyModule.pm http://perlcritic.com/perl/critic.pl
 
     Please note that the perlcritic web-service is still alpha code. The URL
     and interface to the service are subject to change.
@@ -45,9 +45,9 @@ CONFIGURATION
     If there is exactly one import argument, then it is taken to be a named
     equivalent to one of the numeric severity levels supported by
     Perl::Critic. For example, "use criticism 'gentle';" is equivalent to
-    setting the "-severity" to 5, which reports only the most dangerous
+    setting the "-severity => 5", which reports only the most dangerous
     violations. On the other hand, "use criticism 'brutal';" is like setting
-    the "-severity" to 1, which reports every violation. If there are no
+    the "-severity => 1", which reports every violation. If there are no
     import arguments, then it defaults to 'gentle'.
 
     If there is more than one import argument, then they will all be passed
@@ -81,7 +81,7 @@ AUTHOR
     Jeffrey Ryan Thalhammer <thaljef@cpan.org>
 
 COPYRIGHT
-    Copyright (c) 2006 Jeffrey Ryan Thalhammer. All rights reserved.
+    Copyright (c) 2006-2007 Jeffrey Ryan Thalhammer. All rights reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself. The full text of this license can

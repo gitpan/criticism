@@ -1,6 +1,6 @@
 ##################################################################
-#     $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-0.04/t/98_pod_syntax.t $
-#    $Date: 2006-11-05 20:06:19 -0800 (Sun, 05 Nov 2006) $
+#     $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-1.01/t/98_pod_syntax.t $
+#    $Date: 2007-01-24 22:37:04 -0800 (Wed, 24 Jan 2007) $
 #   $Author: thaljef $
 # $Revision: 174 $
 ##################################################################

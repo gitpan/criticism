@@ -1,0 +1,23 @@
+###############################################################################
+#      $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-1.01/t/perlcriticrc $
+#     $Date: 2007-01-24 22:37:04 -0800 (Wed, 24 Jan 2007) $
+#   $Author: thaljef $
+# $Revision: 1188 $
+###############################################################################
+
+severity = 1
+
+#------------------------------------------------------------------------------
+
+[-CodeLayout::RequireTidyCode]
+
+[Documentation::RequirePodSections]
+lib_sections    = NAME|DESCRIPTION|SYNOPSIS|AUTHOR|COPYRIGHT
+script_sections = NAME|DESCRIPTION|SYNOPSIS|AUTHOR|COPYRIGHT
+
+[Miscellanea::RequireRcsKeywords]
+keywords = URL Date Author Revision
+
+[CodeLayout::ProhibitHardTabs]
+allow_leading_tabs = 0
+
