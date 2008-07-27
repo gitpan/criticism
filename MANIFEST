@@ -5,12 +5,14 @@ lib/criticism.pm
 LICENSE
 Makefile.PL
 MANIFEST			This list of files
-META.yml
-README
 t/00_compile.t
 t/01_basic.t
-t/96_perlcritic.t
-t/97_spelling.t
-t/98_pod_syntax.t
-t/99_pod_coverage.t
-t/perlcriticrc
+t/02_fatal.lib/WithCriticismFatal.pm
+t/02_fatal.lib/WithoutCriticismFatal.pm
+t/02_fatal.t
+xt/author/96_perlcritic.t
+xt/author/98_pod_syntax.t
+xt/author/99_pod_coverage.t
+xt/author/perlcriticrc
+README
+META.yml

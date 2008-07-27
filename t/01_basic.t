@@ -1,8 +1,8 @@
 ##################################################################
-#     $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-1.01/t/01_basic.t $
-#    $Date: 2007-01-24 22:37:04 -0800 (Wed, 24 Jan 2007) $
+#     $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-1.02/t/01_basic.t $
+#    $Date: 2008-07-27 16:11:59 -0700 (Sun, 27 Jul 2008) $
 #   $Author: thaljef $
-# $Revision: 1188 $
+# $Revision: 2622 $
 ##################################################################
 
 use strict;

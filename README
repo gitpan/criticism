@@ -55,8 +55,20 @@ CONFIGURATION
     arguments are supported by Perl::Critic.
 
     The "criticism" pragma will also obey whatever configurations you have
-    set in your .perlcriticrc file. See "CONFIGURATION" in Perl::Critic for
-    more details.
+    set in your .perlcriticrc file. In particular, setting the
+    "criticism-fatal" option to a true value will cause your program to
+    immediately "die" if any Perl::Critic violations are found. Otherwise,
+    violations are merely advisory. This option can be set in the global
+    section at the top of your .perlcriticrc file, like this:
+
+      # Top of your .perlcriticrc file...
+      criticism-fatal = 1
+
+      # per-policy configurations follow...
+
+    You can also pass "('-criticism-fatal' => 1)" as import arguments, just
+    like any other Perl::Critic argument. See "CONFIGURATION" in
+    Perl::Critic for details on the other configuration options.
 
 DIAGNOSTICS
     Usually, the "criticism" pragma fails silently if it cannot load

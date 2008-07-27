@@ -1,8 +1,8 @@
 ###############################################################################
-#      $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-1.01/t/96_perlcritic.t $
-#     $Date: 2007-01-24 22:37:04 -0800 (Wed, 24 Jan 2007) $
+#      $URL: http://perlcritic.tigris.org/svn/perlcritic/tags/criticism-1.02/xt/author/96_perlcritic.t $
+#     $Date: 2008-07-27 16:11:59 -0700 (Sun, 27 Jul 2008) $
 #   $Author: thaljef $
-# $Revision: 1188 $
+# $Revision: 2622 $
 ###############################################################################
 
 use strict;
@@ -13,11 +13,6 @@ use English qw(-no_match_vars);
 
 #-----------------------------------------------------------------------------
 
-if ( not $ENV{TEST_AUTHOR} ) {
-    my $msg = 'Author test.  Set $ENV{TEST_AUTHOR} to a true value to run.';
-    plan( skip_all => $msg );
-}
-
 eval { require Test::Perl::Critic; };
 
 if ( $EVAL_ERROR ) {
@@ -27,6 +22,6 @@ if ( $EVAL_ERROR ) {
 
 #-----------------------------------------------------------------------------
 
-my $rcfile = File::Spec->catfile( 't', 'perlcriticrc' );
+my $rcfile = File::Spec->catfile( qw<xt author perlcriticrc> );
 Test::Perl::Critic->import( -profile => $rcfile );
 all_critic_ok();
